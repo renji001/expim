@@ -1,0 +1,71 @@
+<%= render 'layouts/navbar' %>
+<div class="container-fluid col2" style="border-color: lightgrey;border-radius: 0.5em 2em 0.5em 2em;  ">
+  <%= form_tag('/patchs/show_orders', method: 'get') do %>
+      <%= label_tag(:patch_no, '批次号') %>
+      <%= text_field_tag(:patch_no) %>
+      <%= label_tag(:trans_no, '总运单号') %>
+      <%= text_field_tag(:trans_no) %>
+      <%= label_tag(:waybill, '订单号') %>
+      <%= text_field_tag(:waybill) %>
+      <%= label_tag(:real_waybill, '订单号') %>
+      <%= text_field_tag(:real_waybill) %>
+      <%= submit_tag('查询') %>
+  <% end %>
+
+</div>
+<div id="data-table" class="container-fluid">
+  <table class="table table-bordered table-hover text-center">
+    <thead style="text-align: center">
+    <th>ID</th>
+    <th>批次号</th>
+    <th>总运单号</th>
+    <th>订单总数</th>
+    <th>批次总重量</th>
+    <th>包裹件数</th>
+    <th>商品总数量</th>
+    <th>导入时间</th>
+    <th>海关申报资料</th>
+    <th>商检申报资料</th>
+    <th>国内面单打印</th>
+    <th>同步图片</th>
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .btn-xl {
+    margin: 5px 0 5px 5px
+  }
+  .file {
+    position: relative;
+    display: inline-block;
+    background: #D0EEFF;
+    border: 1px solid #99D3F5;
+    border-radius: 4px;
+    padding: 4px 12px;
+    overflow: hidden;
+    color: #1E88C7;
+    text-decoration: none;
+    text-indent: 0;
+    line-height: 20px;
+  }
+  .file input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+  }
+  .file:hover {
+    background: #AADFFD;
+    border-color: #78C3F3;
+    color: #004974;
+    text-decoration: none;
+  }
+  th {
+    text-align: center;
+  }
+</style>

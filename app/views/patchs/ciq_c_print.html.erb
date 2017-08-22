@@ -1,0 +1,166 @@
+<% @lists.each_with_index do |list, index| %>
+    <div align="center" style="page-break-after: always" >
+      <h1>C类快件申报单</h1>
+      <p align="left">&nbsp&nbsp总运单号：<%= list[0].trans_no %>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp分运单号：<%= list[0].waybill %></p>
+      <table border = '1' width="100%">
+        <tr ><td colspan="7" align="center" style="font-size: large; font-weight: bold">申报人基本信息</td></tr>
+        <tr>
+          <td colspan="1" width="20%">姓名</td>
+          <td colspan="1"><%= list[0].declarer_name %></td>
+          <td colspan="1">入境日期</td>
+          <td colspan="1"><%= list[0].in_out_time.strftime('%Y-%m-%d') %></td>
+          <td colspan="1">手机号码</td>
+          <td colspan="2"><%= list[0].declarer_phone %></td>
+        </tr>
+        <tr>
+          <td colspan="1" >国籍</td>
+          <td colspan="1">中国</td>
+          <td colspan="1">证件类别</td>
+          <td colspan="1">身份证</td>
+          <td colspan="1">证件号码</td>
+          <td colspan="2"><%= list[0].declarer_id %></td>
+        </tr>
+        <tr><td colspan="7" align="center" style="font-size:large;font-weight: bold">货物基本信息</td></tr>
+        <tr>
+          <td colspan="1">品名</td>
+          <td>规格/数量</td>
+          <td>HS编码</td>
+          <td>启运地</td>
+          <td>品牌/型号</td>
+          <td>货物新旧</td>
+          <td>到货地</td>
+        </tr>
+        <% if list.length > 1  %>
+            <% list.each do |l| %>
+              <tr>
+                <td><%= l.good_name %></td>
+                <td><%= l.declare_num %></td>
+                <td><%= l.good_no %></td>
+                <td><%= l.trade_country %></td>
+                <td><%= l.good_type %></td>
+                <td>新</td>
+                <td>中国</td>
+              </tr>
+            <% end %>
+        <% else %>
+            <tr>
+              <td><%= list[0].good_name %></td>
+              <td><%= list[0].declare_num %></td>
+              <td><%= list[0].good_no %></td>
+              <td><%= list[0].trade_country %></td>
+              <td><%= list[0].good_type %></td>
+              <td>新</td>
+              <td>中国</td>
+            </tr>
+        <% end %>
+        <% (4 - list.count).times do  %>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        <% end %>
+        <tr><td colspan="7" style="text-align: left">&nbsp备注：</td></tr>
+        <tr><td colspan="7">上述入境货物（物品）不得用于销售或在其他经营活动中使用。</td></tr>
+        <tr><td colspan="7" align="left" style="font-size:large;font-weight: bold">以下由检验检疫填写</td></tr>
+        <tr>
+          <td rowspan="2" colspan="1">评<br>定<br>意<br>见</td>
+          <td colspan="6" style="text-align: left">&nbsp&nbsp&nbsp&nbsp□符合<br><br>&nbsp&nbsp&nbsp&nbsp经查验，_______________________________免于检验。</td>
+        </tr>
+        <tr>
+          <td colspan="6" style="text-align: left">&nbsp&nbsp&nbsp&nbsp□不符合<br><br>&nbsp&nbsp&nbsp&nbsp原因_____________________________</td>
+        </tr>
+      </table>
+      <br>
+      <p align="left">&nbsp&nbsp查验人员：&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp年&nbsp&nbsp&nbsp月&nbsp&nbsp&nbsp日&nbsp&nbsp&nbsp</p>
+      <br>
+      <p align="left">&nbsp&nbsp审核人：&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp年&nbsp&nbsp&nbsp月&nbsp&nbsp&nbsp日&nbsp&nbsp&nbsp</p>
+    </div>
+    <div style="page-break-after: always">
+      <p align="right">（须填写背面内容：随附单据）</p>
+      <table border="1" width="100%">
+        <tr><td>随&nbsp附&nbsp单&nbsp据</td></tr>
+        <tr>
+          <td style="text-align: left">
+            <br>
+            &nbsp（在“□”内打“√”）<br><br>
+            &nbsp□ 护照&nbsp&nbsp&nbsp&nbsp□ 签证&nbsp&nbsp&nbsp&nbsp ✔ 身份证&nbsp&nbsp&nbsp&nbsp□ 机票&nbsp&nbsp&nbsp&nbsp✔ 运单 <br><br>
+            &nbsp✔ 发票&nbsp&nbsp&nbsp&nbsp□ 海关申报单&nbsp&nbsp&nbsp&nbsp□ CCC入境验证特殊情况声明 <br><br>
+            &nbsp□ 其他：____________________
+          </td>
+        </tr>
+      </table>
+      <br>
+      <div id="yx">
+        <img src="../../uploadImages/IdPic/<%= list[0].id_pic %>" alt="" style="position:relative; width: 300px; height: 350px">
+        <img src="../../uploadImages/InvoicePic/<%= list[0].inv_pic %>" alt="" style="width:300px; height:350px "><br>
+
+
+
+        <div style="page-break-after: always; width: 800px; height: 563px; position: relative" class="bk">
+          <div class="rel" style="left: 88px; top: 147px; background: white !important;width: 80px"><%= list[0].shipper_name %></div>
+          <div class="rel" style="left: 217px; top: 149px;">+202-37639835</div>
+          <div class="rel" style="left: 75px; top: 180px;">9460 Telstar Ave Suite4 E1 Monte CA 91731</div>
+          <div class="rel" style="left: 75px; top: 260px;"><%= list[0].shipper_city %></div>
+          <div class="rel" style="left: 75px; top: 290px;"><%= list[0].shipper_country %></div>
+          <div class="rel" style="left: 104px; top: 340px;"><%= list[0].declarer_name %></div>
+          <div class="rel" style="left: 210px; top: 340px; background: white !important;width: 150px"><%= list[0].declarer_phone %></div>
+          <div class="rel" style="left: 52px; top: 396px;width: 420px"><%= list[0].declarer_addr %></div>
+          <div class="rel" style="left: 492px; top: 14px;"><%= @barcodeArr[index] %></div>
+          <div class="rel" style="left: 405px; top: 46px; font-size: xx-large; font-weight: 300"><%= index + 1 %></div>
+          <div class="rel" style="left: 510px; top: 52px;"><%= list[0].waybill %></div>
+          <div class="rel" style="left: 420px; top: 108px; width: 10px">1</div>
+          <div class="rel" style="left: 530px; top: 108px;"><%= list[0].goods_weight %></div>
+          <div class="rel" style="left: 480px; top: 135px; width: 10px">1</div>
+          <div class="rel" style="left: 530px; top: 135px;"><%= list[0].goods_weight %></div>
+
+          <table class="rel" style="left: 350px; top: 184px; width: 400px">
+            <tr style="height: 25px">
+              <td style="width: 210px"><%= list[0].good_name %></td>
+              <td style="width: 75px"><%= list[0].good_no %></td>
+              <td style="width: 75px"><%= list[0].trade_country %></td>
+              <td><%= list[0].declare_num * list[0].declare_price %></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+<% end %>
+
+
+<style>
+  td {
+    text-align: center;
+    height: 50px;
+  }
+    div {
+      font-size: larger;
+    }
+  .rel {
+    position: absolute;
+    width: 300px;
+  }
+
+  .bk {
+    background: url("/yx_print800.png") !important ;
+    background-size: 30% 30px;
+    background-repeat: no-repeat;
+    -webkit-print-color-adjust:exact;
+  }
+
+  table.barby-barcode {
+    border-spacing: 0 !important;
+  }
+  tr.barby-row {}
+  td.barby-cell { width: 1px; height: 30px; }
+  td.barby-cell.on {
+    background: #000 !important;
+  }
+    div#yx {
+      font-size: 6pt;
+    }
+</style>

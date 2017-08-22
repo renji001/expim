@@ -1,0 +1,58 @@
+<% @lists.each_with_index do |list, index| %>
+
+
+
+
+
+    <div style="page-break-after: always; width: 1169px; height: 823px; position: relative" class="bk">
+      <div class="rel" style="left: 130px; top: 220px; background: white !important;width: 120px"><%= list[0].shipper_name %></div>
+      <div class="rel" style="left: 320px; top: 220px;"><%= list[0].real_id %></div>
+      <div class="rel" style="left: 130px; top: 260px;"><%= list[0].real_addr %></div>
+      <div class="rel" style="left: 130px; top: 380px;"><%= list[0].shipper_city %></div>
+      <div class="rel" style="left: 130px; top: 440px;"><%= list[0].shipper_country %></div>
+      <div class="rel" style="left: 180px; top: 510px;"><%= list[0].declarer_name %></div>
+      <div class="rel" style="left: 320px; top: 510px; background: white !important;width: 150px"><%= list[0].declarer_phone %></div>
+      <div class="rel" style="left: 90px; top: 580px;width: 420px"><%= list[0].declarer_addr %></div>
+      <div class="rel" style="left: 850px; top: 25px;"><%= @barcodeArr[index] %></div>
+      <div class="rel" style="left: 700px; top: 80px; font-size: xx-large; font-weight: 300"><%= index + 1 %></div>
+      <div class="rel" style="left: 960px; top: 90px;"><%= list[0].waybill %></div>
+      <div class="rel" style="left: 620px; top: 160px; width: 10px">1</div>
+      <div class="rel" style="left: 780px; top: 160px;"><%= list[0].goods_weight %></div>
+      <div class="rel" style="left: 700px; top: 200px; width: 10px">1</div>
+      <div class="rel" style="left: 780px; top: 200px;"><%= list[0].goods_weight %></div>
+
+      <table class="rel" style="left: 550px; top: 290px; width: 600px">
+        <tr style="height: 25px">
+          <td style="width: 300px"><%= list[0].good_name %></td>
+          <td style="width: 120px"><%= list[0].good_no %></td>
+          <td style="width: 120px"><%= list[0].shipper_country %></td>
+          <td><%= list[0].declare_num * list[0].declare_price %></td>
+        </tr>
+      </table>
+    </div>
+<% end %>
+
+<style>
+  .rel {
+    position: absolute;
+    width: 300px;
+  }
+
+  .bk {
+    background: url("/yx_print.png") !important ;
+    background-repeat: no-repeat;
+    -webkit-print-color-adjust:exact;
+    background-size: 100% 100%;
+  }
+
+  table.barby-barcode {
+    border-spacing: 0 !important;
+  }
+  tr.barby-row {}
+  td.barby-cell { width: 2px; height: 60px; }
+  td.barby-cell.on {
+    background: #000 !important;
+  }
+
+
+</style>

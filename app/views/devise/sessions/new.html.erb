@@ -1,0 +1,29 @@
+<div class="container" style="width:100%;">
+    <div class="container-fluid "  style="width:30%; margin:200px auto;height:500px; ">
+      <h2>快件辅助系统登录</h2>
+
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name),:class => 'form-horizontal' ) do |f| %>
+        <div class="field">
+          <h5>邮箱</h5>
+          <%= f.email_field :email, autofocus: true, :class => 'input-lg' %>
+        </div>
+
+        <div class="field">
+          <h5>密码</h5>
+          <%= f.password_field :password, autocomplete: "off", :class => 'input-lg' %>
+        </div>
+        <br>
+        <% if devise_mapping.rememberable? -%>
+          <div class="field">
+            <%= f.check_box :remember_me, :class => 'checkbox-inline' %>
+            <%= f.label "记住密码？", :class => 'label label-default'%>
+          </div>
+        <% end -%>
+        <br>
+        <div class="actions">
+          <%= f.submit "登录", :class => 'btn btn-alert'%>
+        </div>
+      <% end %>
+      <br>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<style>
+  td{
+    text-align: center;
+    /*height: 20px;*/
+  }
+  .boder-font{
+    font-weight: bolder;
+    height: 25px;
+  }
+</style>
+<div align="center" style="page-break-after: always">
+  <table border="1" cellspacing="0" cellpadding="0">
+    <tr><td colspan="8" style="font-size: xx-large; font-weight: bolder" height="100px">中华人民共和国郑州海关进境快件放行清单</td></tr>
+    <tr><td class="boder-font">进境口岸</td><td colspan="2" class="boder-font">郑州机场</td><td class="boder-font">运营人</td><td colspan="4" class="boder-font">郑州宇迅快递有限公司</td></tr>
+    <tr><td class="boder-font">运输工具</td><td colspan="2"></td><td class="boder-font">查验日期</td><td colspan="4"></td></tr>
+    <tr><td class="boder-font">序号</td><td class="boder-font">主单号</td><td class="boder-font">报关类别</td><td class="boder-font">分单号</td><td class="boder-font" style="width: 200px">品名</td><td class="boder-font">件数</td><td class="boder-font">重量</td><td class="boder-font">状态</td></tr>
+    <% @lists.each_with_index do |order, key| %>
+        <% if order.to_a.length == 1 %>
+            <tr><td><%= key+1 %></td><td><%= order[0].trans_no %></td><td>B</td><td><%= order[0].waybill %></td><td><%= order[0].good_name %></td><td><%= order[0].package_count %></td><td><%=  order[0].goods_weight %></td><td></td></tr>
+        <% else %>
+            <% order.each do |o| %>
+                <tr><td><%= key+1 %></td><td><%= o.trans_no %></td><td>B</td><td><%= o.waybill %></td><td><%= o.good_name %></td><td><%= o.package_count %></td><td><%=  o.goods_weight %></td><td></td></tr>
+            <% end %>
+        <% end %>
+
+    <% end %>
+    <tr><td colspan="8" style="text-align: right; border-bottom: hidden; height: 60px">件数：<%= @total_package %>&nbsp;&nbsp;总重：<%= @total_weight.round(2) %>&nbsp;&nbsp;</td></tr>
+    <tr><td colspan="8" rowspan="2" style="text-align: right; border-top: white;height: 80px">海关签字：&nbsp;&nbsp;&nbsp;&nbsp;日期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+  </table>
+</div>

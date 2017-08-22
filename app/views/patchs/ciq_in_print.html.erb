@@ -1,0 +1,61 @@
+<div>
+  <h1 align="center">河南出入境检验检疫局入境快件申报单</h1>
+  <br>
+  <table align="center" border="1">
+    <th width="80px" height="40px">日期</th>
+    <th width="150">企业名称</th>
+    <th>总运单号</th>
+    <th>分运单号</th>
+    <th width="200px">货物名称</th>
+    <th>件数</th>
+    <th>重量</th>
+    <th>价值</th>
+    <th>币别</th>
+    <th>目的国</th>
+    <th>商品编码</th>
+    <th>原产地</th>
+    <th>收件人</th>
+    <th>发件人</th>
+    <% @lists.each_with_index do |list, index| %>
+        <% list.each do |l| %>
+            <tr>
+              <td><%= l.in_out_time.strftime('%Y-%m-%d') %></td>
+              <td>郑州宇迅快递有限公司</td>
+              <td><%= l.trans_no %></td>
+              <td><%= l.waybill %></td>
+              <td><%= l.good_name %></td>
+              <td><%= l.package_count.to_i %></td>
+              <td><%= l.goods_weight %></td>
+              <td><%= (l.declare_price * l.declare_num).round(2) %></td>
+              <td><%= l.currency %></td>
+              <td>中国</td>
+              <td><%= l.good_no %></td>
+              <td><%= l.trade_country %></td>
+              <td><%= l.declarer_name %></td>
+              <td><%= l.shipper_name %></td>
+            </tr>
+        <% end %>
+    <% end %>
+    <td colspan="2">合计</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><%= @lists.length %></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </table>
+</div>
+<style>
+  th, td {
+    text-align: center;
+  }
+    tr {
+      height:35px;
+    }
+</style>

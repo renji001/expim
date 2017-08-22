@@ -1,0 +1,173 @@
+<%= render 'layouts/navbar' %>
+<div class="container-fluid col2" style="border-color: lightgrey;border-radius: 0.5em 2em 0.5em 2em;  ">
+  <form class="form-control" style="height: auto">
+    <div class="">
+      <label for="">批次号</label>
+      <input type="text" class="input-sm search-query">
+      <label for="">总运单号</label>
+      <input type="text" class="input-sm">
+      <label for="">导入日期</label>
+      <input type="text" class="input-sm">
+      <label for="">货主名称</label>
+      <input type="text" class="input-sm">
+      <button type="button" class="btn btn-info">查询</button>
+    </div>
+  </form>
+  <button type="button" class="btn btn-primary btn-xl" data-toggle="modal" data-target="#excelModal">
+   订单导入
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="excelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">上传订单EXcel，请使用.xlsx为后缀的表格</h4>
+        </div>
+        <div class="modal-body">
+          <%= form_tag({action: :load_excel}, multipart: true) do %>
+            <%= file_field_tag 'excel' %>
+              <br>
+            <%= submit_tag '提交' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+    <button type="button" class="btn btn-primary btn-xl" data-toggle="modal" data-target="#idModal">
+   身份证照片导入
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="idModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">上传身份证照片，使用Ctrl + A 全选文件夹内的图片</h4>
+        </div>
+        <div class="modal-body">
+          
+          <%= form_tag({action: :img_upload}, multipart:true) do %>
+            <%= file_field_tag 'imgs[]' , { "multiple":"multiple"} %>
+            <br>
+            <%= submit_tag '提交' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="btn btn-primary btn-xl" data-toggle="modal" data-target="#Modal2">
+   小票照片导入
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="Modal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">上传小票照片，使用Ctrl + A 全选文件夹内的图片</h4>
+        </div>
+        <div class="modal-body">
+
+          <%= form_tag({action: :invoice_img_upload}, multipart:true) do %>
+              <%= file_field_tag 'imgs[]' , { "multiple":"multiple"} %>
+              <br>
+              <%= submit_tag '提交' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="data-table" class="container-fluid">
+  <table class="table table-bordered table-hover text-center">
+    <thead style="text-align: center">
+    <th>ID</th>
+    <th>批次号</th>
+    <th>总运单号</th>
+    <th>订单总数</th>
+    <th>批次总重量</th>
+    <th>包裹件数</th>
+    <th>商品总数量</th>
+    <th>导入时间</th>
+    <th>海关申报资料</th>
+    <th>商检申报资料</th>
+    <th>国内面单打印</th>
+    <th>同步图片</th>
+    </thead>
+    <tbody>
+      <% @patchs.each do |patch|%>
+        <tr>
+          <td><%= patch.id %></td>
+          <td><%= patch.patch_no %></td>
+          <td><%= link_to patch.trans_no, '/c/s/d' %></td>
+          <td><%= patch.package_count %></td>
+          <td><%= patch.total_weight.round(2) %></td>
+          <td><%= patch.package_count %></td>
+          <td><%= patch.goods_count.round(2) %></td>
+          <td><%= patch.created_at.strftime('%Y-%m-%d %H:%M') %></td>
+          <td>
+            <%= link_to '放行清单', :action => :ciq_release, :trans => patch.trans_no %>&nbsp;
+            <%= link_to '身份证打印', :action => :print_id, :trans => patch.trans_no %>&nbsp;
+            <%= link_to '小票打印', :action => :print_inv, :trans => patch.trans_no %>&nbsp;
+            <%= link_to '宇迅打印', :action => :yx_print, :trans => patch.trans_no %>
+          </td>
+          <td>
+            <%= link_to 'C类报检打印', :action => :ciq_c_print, :trans => patch.trans_no %>&nbsp;
+            <%= link_to '入境申报单打印', :action => :ciq_in_print, trans: patch.trans_no %>&nbsp;
+            <%= link_to '商检导入', :action => :ciq_in_excel, trans: patch.trans_no %>&nbsp;
+          </td>
+          <% if patch.orders.first.real_waybill.present? %>
+              <% if patch.orders.first.real_transformer == '百世汇通' %>
+                  <td><%= link_to '百世面单打印', :action => :bs_print, :trans => patch.trans_no %></td>
+              <% else %>
+                  <td><%= link_to '圆通面单打印', :action => :yt_print, :trans => patch.trans_no %></td>
+              <% end %>
+
+          <% else %>
+              <td><%= link_to '获取面单号', :action => :get_real_waybill, :trans => patch.trans_no %></td>
+          <% end %>
+          <td><%= link_to '同步图片', :action => :syn_pic, :trans => patch.trans_no %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .btn-xl {
+    margin: 5px 0 5px 5px 
+  }
+  .file {
+    position: relative;
+    display: inline-block;
+    background: #D0EEFF;
+    border: 1px solid #99D3F5;
+    border-radius: 4px;
+    padding: 4px 12px;
+    overflow: hidden;
+    color: #1E88C7;
+    text-decoration: none;
+    text-indent: 0;
+    line-height: 20px;
+}
+.file input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+}
+.file:hover {
+    background: #AADFFD;
+    border-color: #78C3F3;
+    color: #004974;
+    text-decoration: none;
+}
+    th {
+      text-align: center;
+    }
+</style>

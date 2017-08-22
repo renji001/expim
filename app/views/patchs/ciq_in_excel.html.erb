@@ -1,0 +1,121 @@
+<div>
+  <table border="1">
+    <th>总单号
+    </th>
+    <th>分运单号
+    </th>
+    <th>货物中文名称
+    </th>
+    <th>货物英文名称
+    </th>
+    <th>商品编码
+    </th>
+    <th>总重量
+    </th>
+    <th>货物总值
+    </th>
+    <th>件数
+    </th>
+    <th>原产地/起运地
+    </th>
+    <th>收件人
+    </th>
+    <th>收件人地址
+    </th>
+    <th>发件人
+    </th>
+    <th>发件人地址
+    </th>
+    <th>备注
+    </th>
+    <th>价格
+    </th>
+    <th>重量
+    </th>
+    <th>规格
+    </th>
+    <% @lists.each do |list| %>
+      <tr>
+        <td><%= list[0].trans_no %></td>
+        <td><%= list[0].waybill %></td>
+        <td>
+          <% list.each_with_index do |l, index| %>
+              <% if index < list.length-1 %>
+              <%= l.good_name + '|'%>
+                  <% else %>
+              <%= l.good_name %>
+                  <% end %>
+          <% end %>
+        </td>
+        <td></td>
+        <td>
+          <% list.each_with_index do |l, index| %>
+              <% if index < list.length-1 %>
+                  <%= l.good_no + '|'%>
+              <% else %>
+                  <%= l.good_no %>
+              <% end %>
+          <% end %>
+        </td>
+        <td>
+          <% tw = 0 %>
+          <% list.each do |l| %>
+            <% tw += l.goods_weight %>
+          <% end %>
+          <%= tw.round(3) %>
+        </td>
+        <td>
+          <% tv = 0 %>
+          <% list.each do |l| %>
+              <% tv += (l.declare_price + l.declare_num) %>
+          <% end %>
+          <%= tv %>
+        </td>
+        <td>1</td>
+        <td>
+          <%= list[0].shipper_country %>
+        </td>
+        <td>
+          <%= list[0].declarer_name %>
+        </td>
+        <td>
+          <%= list[0].declarer_addr %>
+        </td>
+        <td>
+          <%= list[0].shipper_name %>
+        </td>
+        <td>
+          <%= list[0].real_addr %>
+        </td>
+        <td></td>
+        <td>
+          <% list.each_with_index do |l, index| %>
+              <% if index < list.length-1 %>
+                  <%= l.declare_price.to_s + '|'%>
+              <% else %>
+                  <%= l.declare_price.to_s %>
+              <% end %>
+          <% end %>
+        </td>
+        <td>
+          <% list.each_with_index do |l, index| %>
+              <% if index < list.length-1 %>
+                  <%= l.goods_weight.to_s + '|'%>
+              <% else %>
+                  <%= l.goods_weight.to_s %>
+              <% end %>
+          <% end %>
+        </td>
+        <td>
+          <% list.each_with_index do |l, index| %>
+              <% if index < list.length-1 %>
+                  <%= l.good_type + '|'%>
+              <% else %>
+                  <%= l.good_type %>
+              <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

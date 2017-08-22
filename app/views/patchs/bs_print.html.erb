@@ -1,0 +1,89 @@
+<% @lists.each_with_index do |list, index| %>
+
+
+
+
+
+    <div style="width: 650px; height: 1004px; position: relative;  page-break-after: always; "class="bk">
+      <div class="rel ele" style="left: 400px ; top: 0px;font-family: SimHei; font-size:22pt; line-height: 27px">标准快件<br><span style="font-size: 16pt; line-height: 2px">精彩生活·传递快乐</span></div>
+      <div class="rel" style="left: 70px; top: 66px; font-size: 26pt;font-family: simHei; "><%= list[0].markDest %></div>
+      <div class="rel" style="left: 430px; top: 66px; font-size: 40px"><%= list[0].sortingCode.to_s.first(3) %></div>
+      <div class="rel" style="left: 70px; top: 142px; font-size: 30px"><%= list[0].sortingSite %></div>
+
+      <div class="ele" style="left:58px;top:210px;font-size: 14pt">收<br><br>件</div>
+      <div class="ele" style="left:58px;top:308px;font-size: 14pt">寄<br style="line-height: 40px">件</div>
+      <div class="rel" style="left: 100px; top: 200px; "><%= list[0].realName %></div>
+      <div class="rel pan" style="left: 90px; top: 223px; ">电话：<%= list[0].realPhone %></div>
+      <div class="rel pan" style="left: 90px; top: 248px; ">地址：<%= list[0].consigneeAdress %></div>
+      <div class="rel pan" style="left:513px;top:196px">服&nbsp&nbsp&nbsp&nbsp务</div>
+
+      <div class="rel" style="left: 100px; top: 305px; "><%= list[0].shipper_name %></div>
+      <div class="rel pan" style="left: 90px; top: 330px; ">电话：<%= list[0].real_id %></div>
+      <div class="rel pan" style="left: 90px; top: 352px; ">地址：<%= list[0].real_addr %></div>
+
+      <div class="rel" style="left: 200px; top: 400px; "><%= @barcodeArr[index] %></div>
+      <div class="rel" style="left: 260px; top: 460px; "><%= list[0].real_waybill %></div>
+      <div class="rel pan" style="left:58px;top:520px;width: 283px;font-size: 13pt;line-height: 26px">您对此单的签收，代表您已验收，确认商品信息无误，包装完好，没有划痕、破损等表面质量问题</div>
+      <div class="rel pan" style="left:352px;top:520px;">签收人：</div>
+      <div class="rel pan" style="left:352px;top:590px;">时间：</div>
+
+
+
+      <div class="rel" style="left: 320px; top: 623px; "><%= @barcodeArr[index] %></div>
+      <div class="rel" style="left: 380px; top: 683px; "><%= list[0].real_waybill %></div>
+
+      <div class="ele" style="left:58px;top:706px;font-size: 14pt">收<br><br>件</div>
+      <div class="ele" style="left:58px;top:815px;font-size: 14pt">寄<br style="line-height: 40px">件</div>
+      <div class="rel" style="left: 100px; top: 710px; "><%= list[0].realName %></div>
+      <div class="rel pan" style="left: 93px; top: 730px; ">电话：<%= list[0].realPhone %></div>
+      <div class="rel pan" style="left: 93px; top: 755px; ">地址：<%= list[0].consigneeAdress %></div>
+
+      <div class="rel" style="left: 100px; top: 815px; "><%= list[0].shipper_name %></div>
+      <div class="rel pan" style="left: 93px; top: 836px; ">电话：<%= list[0].real_id %></div>
+      <div class="rel pan" style="left: 93px; top: 859px; ">地址：<%= list[0].real_addr %></div>
+
+      <div class="rel" style="left: 100px; top: 920px; font-size: 40px"><%= index + 1 %></div>
+
+      <div class="rel" style="left: 170px; top: 900px; "><%= list[0].main_good %></div>
+      <div class="rel" style="left: 170px; top: 930px; ">sld001</div>
+      <div class="rel" style="left: 170px; top: 960px; "><%= list[0].waybill %></div>
+
+    </div>
+<% end %>
+
+<style>
+  .rel {
+    position: absolute;
+    font-family: SimHei;
+    font-size:14pt;
+  }
+  .ele {
+    position: absolute;
+    background: white !important;
+    text-align: center;
+    font-family: SimHei;
+  }
+  .pan{
+    background: white !important;
+  }
+
+  .bk {
+    background: url("/bs_print650.png") !important ;
+    background-size: 100% ;
+    background-repeat: no-repeat;
+    -webkit-print-color-adjust:exact;
+    margin-top: 13px;
+    margin-left: -40px;
+  }
+
+  table.barby-barcode {
+    border-spacing: 0 !important;
+  }
+  tr.barby-row {}
+  td.barby-cell { width: 2px; height: 60px; }
+  td.barby-cell.on {
+    background: #000 !important;
+  }
+
+
+</style>

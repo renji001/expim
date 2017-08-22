@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  patch_no: MyString
+  orders_count: 
+
+two:
+  patch_no: MyString
+  orders_count: 
